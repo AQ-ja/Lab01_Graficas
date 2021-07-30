@@ -92,14 +92,27 @@ class Renderer(object):
                 limit += 1
 
 #___________________________________________________________________________________________
-    # Aqui se intenra hacer lo del fill 
-    def glDraw(self, points):
-        i = 0
-        j = len(points) - 1
+    # Aqui se intentara hacer lo del fill
+    # Este codigo fue tomado/modificado de: 
+    # https://handwiki.org/wiki/Even%E2%80%93odd_rule
+    def glFit(self, x, y, points):
+        tam = len(points)
+        i = 0 
+        j = tam -1
+        cumple = False
+
+        for i in range(tam):
+            if ((points[i][1] >y) !=(points[j][1] >y )) and (x < points[i][0] + (points[j][0] - points[i][0]) * (y - points[i][1])/(points[j][1] - points[i][1])):
+                cumple = not cumple
+            j = i 
+        return cumple
+
+    def glFill(self, points):
         for x in range(self.width):
             for y in range(self.height):
-                if ((points[i][1] > y) != (points[j][1] >y )) and (x < points[i][0] + (points[j][0] - points[i][0]) * (y - points[i][1])/(points[j][1] - points[i][1])):
+                if(self.glFit(x,y,points)):
                     self.glPoint(x,y)
+
  #_________________________________________________________
 
     def glFinished(self, filename):
