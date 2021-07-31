@@ -95,6 +95,8 @@ class Renderer(object):
     # Aqui se intentara hacer lo del fill
     # Este codigo fue tomado/modificado de: 
     # https://handwiki.org/wiki/Even%E2%80%93odd_rule
+    # El unico fallo que le veo a este codigo es que como se basa en buscar y llenar las figuras
+    # no toma en cuenta los espacios, como se puede ver en la tetera. 
     def glFit(self, x, y, points):
         tam = len(points)
         i = 0 
